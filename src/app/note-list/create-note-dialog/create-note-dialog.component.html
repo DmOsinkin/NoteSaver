@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>New note</h1>
+<mat-dialog-content>
+  <p>Title</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="title" placeholder="title">
+  </mat-form-field>
+  <p>Priority</p>
+  <mat-radio-group class="priority-radio-group" [(ngModel)]="priority">
+    <mat-radio-button class="priority-radio-button" *ngFor="let priority of priorityEnum | enumToArray" [value]="priority">
+      {{priority}}
+    </mat-radio-button>
+  </mat-radio-group>
+  <p>Date</p>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+</mat-dialog-content>
+<div mat-dialog-actions>
+  <button class="mat-raised-button" (click)="close()">Close</button>
+  <button class="mat-raised-button mat-primary" (click)="save()">Save</button>
+</div>

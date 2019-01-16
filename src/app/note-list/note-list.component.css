@@ -1,0 +1,5 @@
+
+.tr-note:hover {
+  cursor: pointer;
+  background-color: darkgrey;
+}
