@@ -1,20 +1,24 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppComponent} from './app.component';
 import {NoteListComponent} from './note-list/note-list.component';
-import {EnumToArrayPipe, CreateNoteDialogComponent} from './note-list/create-note-dialog/create-note-dialog.component';
+import {CreateNoteDialogComponent, EnumToArrayPipe} from './note-list/create-note-dialog/create-note-dialog.component';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {
-  MatButtonModule, MatDatepickerModule,
+  MatButtonModule,
+  MatDatepickerModule,
   MatDialogModule,
-  MatFormFieldModule, MatInputModule, MatNativeDateModule, MatOptionModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatNativeDateModule,
+  MatOptionModule,
   MatPaginatorModule,
-  MatRadioModule, MatSelectModule,
+  MatRadioModule,
   MatTableModule
 } from '@angular/material';
 import {FormsModule} from '@angular/forms';
-import { ViewNoteDialogComponent } from './note-list/view-note-dialog/view-note-dialog.component';
+import {ViewNoteDialogComponent} from './note-list/view-note-dialog/view-note-dialog.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -37,8 +41,8 @@ import { ViewNoteDialogComponent } from './note-list/view-note-dialog/view-note-
     MatNativeDateModule,
     FormsModule,
     MatInputModule,
-    MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent],

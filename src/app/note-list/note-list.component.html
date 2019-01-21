@@ -1,7 +1,7 @@
 <div class="mat-app-background basic-container">
   <button mat-stroked-button (click)="openCreateDialog()">Create note</button>
   <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="notes">
+    <table mat-table [dataSource]="noteMatTableDataSource">
 
       <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Title</th>

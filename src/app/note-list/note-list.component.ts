@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Note} from '../Note';
 import {MatDialog, MatPaginator, MatTableDataSource} from '@angular/material';
 import {CreateNoteDialogComponent} from './create-note-dialog/create-note-dialog.component';
-import {ELEMENT_DATA} from '../Data';
 import {ViewNoteDialogComponent} from './view-note-dialog/view-note-dialog.component';
+import {ApiService} from '../api.service';
 
 @Component({
   selector: 'app-note-list',
@@ -13,23 +13,42 @@ import {ViewNoteDialogComponent} from './view-note-dialog/view-note-dialog.compo
 export class NoteListComponent implements OnInit {
 
   displayedColumns: string[] = ['title', 'priority', 'date'];
-  notes = new MatTableDataSource<Note>(ELEMENT_DATA);
+  notes: Note[];
+  noteMatTableDataSource: MatTableDataSource<Note>;
 
   @ViewChild(MatPaginator)
   paginator: MatPaginator;
 
   ngOnInit() {
-    this.notes.paginator = this.paginator;
+    this.getNotes();
+    this.noteMatTableDataSource.paginator = this.paginator;
   }
 
-  constructor(public dialog: MatDialog) {}
+  constructor(private apiService: ApiService, public dialog: MatDialog) {
+  }
+
+  getNotes(): void {
+    this.apiService.getNotes()
+      .subscribe(notes => this.notes = notes);
+    this.noteMatTableDataSource = new MatTableDataSource(this.notes);
+  }
+
+  add(note: Note): void {
+    if (!note) {
+      return;
+    }
+    this.apiService.postNote(note)
+      .subscribe(note => {
+        this.notes.push(note);
+        this.noteMatTableDataSource = new MatTableDataSource(this.notes);
+      });
+  }
 
   openCreateDialog(): void {
     const dialogRef = this.dialog.open(CreateNoteDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
-      ELEMENT_DATA.push(result);
-      this.notes = new MatTableDataSource(ELEMENT_DATA);
+      this.add(result);
     });
   }
 
